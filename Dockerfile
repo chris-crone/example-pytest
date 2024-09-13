@@ -14,7 +14,7 @@ FROM testbase AS test
 # `--last-failed` flag.
 RUN --mount=type=cache,target=/pytest_cache \
     --mount=type=bind,target=. \
-    py.test -o cache_dir=/pytest_cache -v --last-failed
+    py.test -o cache_dir=/pytest_cache -v --last-failed --last-failed-no-failures none
 
 # Utility to print out the cache state.
 # Run `docker buildx bake showcache --progress plain` to see it.
