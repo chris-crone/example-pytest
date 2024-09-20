@@ -8,13 +8,20 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=requirements.txt,target=requirements.txt \
     pip install -r requirements.txt
 
-FROM testbase AS test
+FROM testbase AS testfailed
 # Use a cache for pytest so that between runs we cache test run state. This
 # allows us to run only the tests that failed last time using the
 # `--last-failed` flag.
 RUN --mount=type=cache,target=/pytest_cache \
     --mount=type=bind,target=. \
     py.test -o cache_dir=/pytest_cache -v --last-failed --last-failed-no-failures none
+
+FROM testbase AS testall
+# Use a cache for pytest so that between runs we cache test run state. Run all
+# the tests.
+RUN --mount=type=cache,target=/pytest_cache \
+    --mount=type=bind,target=. \
+    py.test -o cache_dir=/pytest_cache -v
 
 # Utility to print out the cache state.
 # Run `docker buildx bake showcache --progress plain` to see it.

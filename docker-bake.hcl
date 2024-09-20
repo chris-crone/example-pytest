@@ -1,5 +1,9 @@
-target "test" {
-    target = "test"
+target "testfailed" {
+    target = "testfailed"
+}
+
+target "testall" {
+    target = "testall"
 }
 
 target "clean" {

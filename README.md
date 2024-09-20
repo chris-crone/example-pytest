@@ -13,8 +13,11 @@ You do not need Python or any other dependencies!
 
 # Running the tests
 
-The tests can be run using `docker buildx bake test`, optionally with
+The tests can be run using `docker buildx bake testall`, optionally with
 `--progress plain` to see the full output.
+
+To only run tests that previously failed, run `docker buildx bake testfailed`,
+optionally with `--progress plain` to see the full output.
 
 # Clearing the test cache
 
